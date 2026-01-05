@@ -33,7 +33,66 @@ Get-ExecutionPolicy
 
 ```shell
 # 制限緩和
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser > Y
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+# > Y
 
 pnpm install
 ```
+
+```log
+Progress: resolved 117, reused 0, downloaded 53, added 5
+  44:     0x7ffb47fee8d7 - BaseThreadInitThunk
+  45:     0x7ffb4934c53c - RtlUserThreadStart
+thread caused non-unwinding panic. aborting.
+```
+
+👆 でコケた。  
+
+`node_modules` フォルダー、  
+`pnpm-lock.yaml` ファイル、  
+`src-tauri/target` フォルダー  
+を削除して以下を打鍵！  
+
+```shell
+rustup update
+pnpm install --frozen-lockfile=false
+```
+
+```log
+info: checking for self-update
+
+  stable-x86_64-pc-windows-msvc updated - rustc 1.92.0 (ded5c06cf 2025-12-08) (from rustc 1.88.0 (6b00bc388 2025-06-23))
+
+info: cleaning up downloads & tmp directories
+
+thread 'main' panicked at src\utils\mod.rs:479:13:
+Unable to clean up C:\Users\muzud\.rustup\tmp: Os { code: 5, kind: PermissionDenied, message: "アクセスが拒否されました。" }
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+```
+
+👆 コケた！  
+
+```shell
+# PowerShell（管理者）で
+Remove-Item -Recurse -Force "$env:USERPROFILE\.rustup\tmp" -ErrorAction SilentlyContinue
+
+rustup self update
+```
+
+```shell
+# 再インストール手順
+rustup toolchain uninstall stable
+rustup toolchain install stable
+
+rustup default stable
+pnpm install
+```
+
+```log
+  45:     0x7ffb4934c53c - RtlUserThreadStart
+thread caused non-unwinding panic. aborting.
+```
+
+👆 コケた！  
+
+
