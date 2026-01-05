@@ -1,11 +1,12 @@
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 
-// @ts-expect-error process is a nodejs global
+// // @ts-expect-error process is a nodejs global
 const host = process.env.TAURI_DEV_HOST;
 
 // https://vitejs.dev/config/
 export default defineConfig(async () => ({
+    root: process.cwd(),    // プロジェクトのルートディレクトリを現在の作業ディレクトリに設定。NASパスにされるのを回避。
     plugins: [vue()],
     resolve: {
         alias: {

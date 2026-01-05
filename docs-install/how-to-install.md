@@ -7,5 +7,9 @@ Type Scrpt/Java Script 等のモジュールをまだインストールしてい
 ```shell
 pnpm add -D vite @vitejs/plugin-vue
 pnpm add -D @tauri-apps/cli
+
+# VSCode に TypeScript の型定義を教える
+pnpm add -D @types/node
+
 pnpm install
 ```

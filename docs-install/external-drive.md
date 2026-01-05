@@ -17,10 +17,10 @@ cd z:\
 dir
 ```
 
-作業終わったら以下で解除：  
+もし、作業終わったら以下で解除：  
 
 ```shell
-subst z:\ /d
+subst z: /d
 ```
 
 VSCode ターミナルで PowerShell 選択。  
