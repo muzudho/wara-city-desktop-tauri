@@ -95,4 +95,10 @@ thread caused non-unwinding panic. aborting.
 
 👆 コケた！  
 
+```shell
+# フルクリーン＆再インストール
+Remove-Item -Recurse -Force node_modules, pnpm-lock.yaml, src-tauri/target
+rustup update stable
+pnpm install --shamefully-hoist --frozen-lockfile=false
+```
 
