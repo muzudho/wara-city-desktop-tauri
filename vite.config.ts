@@ -1,12 +1,14 @@
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 
-// // @ts-expect-error process is a nodejs global
+// VSCode に process オブジェクトを認識させるために、 `pnpm add -D @types/node` しておいてください。
 const host = process.env.TAURI_DEV_HOST;
 
 // https://vitejs.dev/config/
 export default defineConfig(async () => ({
     root: process.cwd(),    // プロジェクトのルートディレクトリを現在の作業ディレクトリに設定。NASパスにされるのを回避。
+    base: './',           // 相対パス強制でURL解決安定化。
+
     plugins: [vue()],
     resolve: {
         alias: {
@@ -23,7 +25,7 @@ export default defineConfig(async () => ({
     clearScreen: false,
     // 2. tauri expects a fixed port, fail if that port is not available
     server: {
-        port: 1420,
+        port: 1420,         // Tauriデフォルトポートに合わせる
         strictPort: true,
         host: host || false,
         hmr: host
