@@ -4,9 +4,16 @@ Type Scrpt/Java Script 等のモジュールをまだインストールしてい
 
 （パワーシェルではなく）コマンドプロンプトを使う。  
 
+* `node_modules` フォルダーを削除。
+* `src-tauri/target` フォルダーを削除。
+* `pnpm-lock.yaml` ファイルを削除。
+
 ```shell
 # 通常はこれだけ
 pnpm install
+
+# それでダメならこれ
+#pnpm install --shamefully-hoist
 ```
 
 
