@@ -123,11 +123,16 @@
     // ##############
 
     onMounted(async () => {
+        const confFileName = 'start-config.json';
         try {
             // Rust言語（バックグラウンド相当）の関数を呼び出し
-            startConfig.value = await invoke('read_bundle_text_file', {'fileName': 'start-config.json'});
+            startConfig.value = await invoke('read_bundle_text_file', {'fileName': confFileName});
             //alert(`DEBUG: ファイル読み取り練習中： ${JSON.stringify(startConfig.value, null, "    ")}`);
-            
+        } catch (error) {
+            alert(`${confFileName}ファイルを読込めませんでした。エラーが出ましたが、継続します。\n起動時エラー： ${error}`);
+        }
+
+        try {           
             // TODO データを後から読み込みたい。
             await loadSourceTilesCollection(ref(srcTileCollection.tileDict));     // FIXME: こんな書き方でいいのか？
             loadSourceTilemapCollection(startConfig, srcTilemaps, srcTileCollection);
