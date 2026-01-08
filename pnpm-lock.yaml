@@ -25,7 +25,7 @@ importers:
         specifier: ^2.9.6
         version: 2.9.6
       '@tauri-apps/plugin-dialog':
-        specifier: ~2.4.2
+        specifier: ^2.4.2
         version: 2.4.2
       '@tauri-apps/plugin-fs':
         specifier: ~2.4.4
